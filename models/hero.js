@@ -24,8 +24,7 @@ const heroSchema = Schema({
     default: "None",
   },
   images: {
-    type: String,
-    required: [true, "Image is required"],
+    type: Array,
   },
 });
 
@@ -37,7 +36,7 @@ const joiHero = Joi.object({
   originDescription: Joi.string(),
   superpowers: Joi.string().required(),
   catchPhrase: Joi.string(),
-  images: Joi.string().required(),
+  images: Joi.array(),
 });
 
 const schemas = {
