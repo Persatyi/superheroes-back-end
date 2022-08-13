@@ -1,7 +1,7 @@
 const express = require("express");
 const { heroes: ctrl } = require("../../controllers");
 const { ctrlWrapper } = require("../../helpers");
-const { validation, upload } = require("../../middlewares");
+const { validation, upload, isValidId } = require("../../middlewares");
 const { schemas } = require("../../models/hero");
 const router = express.Router();
 
@@ -13,5 +13,7 @@ router.post(
   validation(schemas.joiHero),
   ctrlWrapper(ctrl.add)
 );
+
+router.delete("/:heroId", isValidId, ctrlWrapper(ctrl.removeById));
 
 module.exports = router;
