@@ -36,11 +36,22 @@ const joiHero = Joi.object({
   originDescription: Joi.string(),
   superpowers: Joi.string().required(),
   catchPhrase: Joi.string(),
-  images: Joi.array(),
+  images: Joi.alternatives().try(
+    Joi.array().default([]),
+    Joi.string().empty(null).allow(null, "").default("")
+  ),
+});
+
+const editHeroImage = Joi.object({
+  images: Joi.alternatives().try(
+    Joi.array().default([]),
+    Joi.string().empty(null).allow(null, "").default("")
+  ),
 });
 
 const schemas = {
   joiHero,
+  editHeroImage,
 };
 
 module.exports = { Hero, schemas };

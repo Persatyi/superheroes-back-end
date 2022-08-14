@@ -14,6 +14,15 @@ router.post(
   ctrlWrapper(ctrl.add)
 );
 
-router.delete("/:heroId", isValidId, ctrlWrapper(ctrl.removeById));
+router.put(
+  "/:heroId",
+  isValidId,
+  upload.single("image"),
+  ctrlWrapper(ctrl.addPicture)
+);
+
+router.delete("/:heroId&:image", isValidId, ctrlWrapper(ctrl.removePicture));
+
+router.delete("/:heroId", isValidId, ctrlWrapper(ctrl.removeHeroById));
 
 module.exports = router;
