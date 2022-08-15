@@ -38,7 +38,8 @@ const joiHero = Joi.object({
   catchPhrase: Joi.string(),
   images: Joi.alternatives().try(
     Joi.array().default([]),
-    Joi.string().empty(null).allow(null, "").default("")
+    Joi.string().empty(null).allow(null, "").default(""),
+    Joi.object()
   ),
 });
 
