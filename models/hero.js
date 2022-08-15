@@ -33,9 +33,9 @@ const Hero = model("hero", heroSchema);
 const joiHero = Joi.object({
   nickname: Joi.string().required(),
   realName: Joi.string().required(),
-  originDescription: Joi.string(),
+  originDescription: Joi.string().required(),
   superpowers: Joi.string().required(),
-  catchPhrase: Joi.string(),
+  catchPhrase: Joi.string().required(),
   images: Joi.alternatives().try(
     Joi.array().default([]),
     Joi.string().empty(null).allow(null, "").default(""),
