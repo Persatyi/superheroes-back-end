@@ -7,16 +7,21 @@ const removePicture = async (req, res) => {
   const { heroId, image } = req.params;
   const [hero] = await Hero.find({ _id: heroId });
 
-  const imagePath = path.join("avatars", image);
-  const index = hero.images.findIndex((el) => el === imagePath);
+  if (!hero) {
+    throw createError(400, `Can't found hero with ${heroId} id`);
+  }
+
+  const index = hero.images.name.findIndex((el) => el === image);
 
   if (index === -1) {
     throw createError(404, "Image not found");
   }
 
-  const removePath = path.join(__dirname, "../../", "public", imagePath);
+  // Removing image from public folder
+  const removePath = path.join(__dirname, "../../", "public", "avatars", image);
   await fs.unlink(removePath);
 
+  // Updating DB
   const newArray = hero.images.slice(0, hero.images.length);
   newArray.splice(index, 1);
   const newHero = await Hero.findByIdAndUpdate(
@@ -24,10 +29,6 @@ const removePicture = async (req, res) => {
     { images: newArray },
     { new: true }
   );
-
-  if (!newHero) {
-    throw createError(400, `Can't found hero with ${heroId} id`);
-  }
 
   res.status(200).json({
     newHero,

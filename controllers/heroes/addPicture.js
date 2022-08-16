@@ -11,15 +11,18 @@ const addPicture = async (req, res) => {
     const { heroId } = req.params;
     const [hero] = await Hero.find({ _id: heroId });
 
+    // Renaming and moving file to public folder
     const { filename } = req.file;
     const [extension] = filename.split(".").reverse();
     const name = `${uuidv4()}.${extension}`;
+    const [id] = name.split(".");
     const newDir = path.join(publicDir, name);
     await fs.rename(req.file.path, newDir);
 
+    // Adding file to DB
     const avatarURL = path.join("avatars", name);
     const images = hero.images.slice(0, hero.images.length);
-    images.push(avatarURL);
+    images.push({ path: avatarURL, name, id });
     const result = await Hero.findByIdAndUpdate(
       heroId,
       { images },

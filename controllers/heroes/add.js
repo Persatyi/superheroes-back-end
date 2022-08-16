@@ -31,10 +31,15 @@ const add = async (req, res) => {
     try {
       // Renaming images by awarding an id;
       const [extension] = filesPath[i].name.split(".").reverse();
-      const newImagePath = path.join("avatars", `${uuidv4()}.${extension}`);
+      const name = uuidv4();
+      const newImagePath = path.join("avatars", `${name}.${extension}`);
 
       // Pushing new path to array;
-      images.push(newImagePath);
+      images.push({
+        path: newImagePath,
+        name: `${name}.${extension}`,
+        id: name,
+      });
 
       // Moving image from "temp" folder to "public";
       const newDir = path.join(publicDir, newImagePath);

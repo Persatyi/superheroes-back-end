@@ -5,7 +5,7 @@ const getAll = async (req, res) => {
   const { page = 1, limit = 5 } = req.query;
   const skip = (page - 1) * limit;
   const result = await Hero.find({}, "-__v", {
-    skip,
+    skip: Number(skip),
     limit: Number(limit),
   });
 
