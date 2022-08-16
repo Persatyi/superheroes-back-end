@@ -44,9 +44,10 @@ const joiHero = Joi.object({
 });
 
 const editHeroImage = Joi.object({
-  images: Joi.alternatives().try(
+  image: Joi.alternatives().try(
     Joi.array().default([]),
-    Joi.string().empty(null).allow(null, "").default("")
+    Joi.string().empty(null).allow(null, "").default(""),
+    Joi.object()
   ),
 });
 

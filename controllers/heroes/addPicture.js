@@ -9,6 +9,7 @@ const publicDir = path.join(__dirname, "../../", "public", "avatars");
 const addPicture = async (req, res) => {
   try {
     const { heroId } = req.params;
+
     const [hero] = await Hero.find({ _id: heroId });
 
     // Renaming and moving file to public folder

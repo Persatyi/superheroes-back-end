@@ -11,7 +11,7 @@ const removePicture = async (req, res) => {
     throw createError(400, `Can't found hero with ${heroId} id`);
   }
 
-  const index = hero.images.name.findIndex((el) => el === image);
+  const index = hero.images.findIndex((el) => el.name === image);
 
   if (index === -1) {
     throw createError(404, "Image not found");
