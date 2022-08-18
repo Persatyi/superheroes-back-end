@@ -22,7 +22,7 @@ const removePicture = async (req, res) => {
   await fs.unlink(removePath);
 
   // Updating DB
-  const newArray = hero.images.slice(0, hero.images.length);
+  const newArray = [...hero.images];
   newArray.splice(index, 1);
   const newHero = await Hero.findByIdAndUpdate(
     heroId,

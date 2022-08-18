@@ -22,7 +22,7 @@ const addPicture = async (req, res) => {
 
     // Adding file to DB
     const avatarURL = path.join("avatars", name);
-    const images = hero.images.slice(0, hero.images.length);
+    const images = [...hero.images]
     images.push({ path: avatarURL, name, id });
     const result = await Hero.findByIdAndUpdate(
       heroId,
